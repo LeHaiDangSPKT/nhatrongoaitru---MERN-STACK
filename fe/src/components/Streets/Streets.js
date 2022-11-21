@@ -49,21 +49,19 @@ function Streets(prop) {
   React.useEffect(() => {
     setLoader(true);
     nameOfWard &&
-      Axios.get(
-        `https://nhatrongoaitruspkt.herokuapp.com/manager/${nameOfWard}`
-      ).then(({ data }) => {
-        setListOfDetail(data);
-        setData(data);
-        setLoader(false);
-      });
+      Axios.get(`${process.env.REACT_APP_API}/manager/${nameOfWard}`).then(
+        ({ data }) => {
+          setListOfDetail(data);
+          setData(data);
+          setLoader(false);
+        }
+      );
   }, [nameOfWard]);
   //Get data wards
   React.useEffect(() => {
-    Axios.get("https://nhatrongoaitruspkt.herokuapp.com/manager/").then(
-      (response) => {
-        setListOfWard(response.data);
-      }
-    );
+    Axios.get(process.env.REACT_APP_API + "/manager/").then((response) => {
+      setListOfWard(response.data);
+    });
   }, []);
   const sort = (state) => {
     if (state == "price") {

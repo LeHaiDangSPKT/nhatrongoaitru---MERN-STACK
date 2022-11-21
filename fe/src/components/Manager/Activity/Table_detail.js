@@ -13,16 +13,16 @@ export default function Table_detail({ name }) {
   //Get data activities
   React.useEffect(() => {
     name &&
-      Axios.get(
-        `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/${name}`
-      ).then(({ data }) => {
-        setListOfDetail(data);
-      });
+      Axios.get(`${process.env.REACT_APP_API}/managerActivity/${name}`).then(
+        ({ data }) => {
+          setListOfDetail(data);
+        }
+      );
   }, [name]);
 
   const handleDestroyActivity = () => {
     Axios.delete(
-      `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/deleteActivityById/${idActivity}`
+      `${process.env.REACT_APP_API}/managerActivity/deleteActivityById/${idActivity}`
     )
       .then(function (response) {
         const result = listOfDetail.filter(
@@ -47,7 +47,7 @@ export default function Table_detail({ name }) {
   const handleUpdate = () => {
     console.log(activity);
     Axios.put(
-      `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/update/${activity._id}`,
+      `${process.env.REACT_APP_API}/managerActivity/update/${activity._id}`,
       {
         name: activity.name,
         title: activity.title,

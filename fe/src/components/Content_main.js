@@ -28,18 +28,18 @@ function Content_main() {
 
   //Get data year of activities
   React.useEffect(() => {
-    Axios.get(
-      `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/getYear`
-    ).then(({ data }) => {
-      setListOfYear(data);
-      setYearCurrent(data[0].year);
-    });
+    Axios.get(`${process.env.REACT_APP_API}/managerActivity/getYear`).then(
+      ({ data }) => {
+        setListOfYear(data);
+        setYearCurrent(data[0].year);
+      }
+    );
   }, []);
   //Get data activities
   React.useEffect(() => {
     setMiniLoader(true);
     Axios.get(
-      `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/${
+      `${process.env.REACT_APP_API}/managerActivity/${
         yearCurrent || "2021-2022"
       }`
     ).then(({ data }) => {
@@ -50,12 +50,10 @@ function Content_main() {
 
   //Get data ward
   React.useEffect(() => {
-    Axios.get("https://nhatrongoaitruspkt.herokuapp.com/manager/").then(
-      (response) => {
-        setListOfWard(response.data);
-        setLoader(false);
-      }
-    );
+    Axios.get(process.env.REACT_APP_API + "/manager/").then((response) => {
+      setListOfWard(response.data);
+      setLoader(false);
+    });
   }, []);
   return (
     <div id="content">

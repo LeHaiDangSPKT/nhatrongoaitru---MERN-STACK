@@ -7,11 +7,11 @@ export default function ModalSignIn() {
   const [password, setPassword] = React.useState("");
 
   React.useEffect(() => {
-    Axios.get(
-      "https://nhatrongoaitruspkt.herokuapp.com/account/getAccount"
-    ).then((response) => {
-      setListOfAccount(response.data);
-    });
+    Axios.get(process.env.REACT_APP_API + "/account/getAccount").then(
+      (response) => {
+        setListOfAccount(response.data);
+      }
+    );
   }, []);
 
   function checkedUsername(username, password) {

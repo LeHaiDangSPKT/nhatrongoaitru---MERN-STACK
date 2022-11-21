@@ -15,12 +15,12 @@ export default function Table_detail({ nameOfWard }) {
   React.useEffect(() => {
     setMiniLoader(true);
     nameOfWard &&
-      Axios.get(
-        `https://nhatrongoaitruspkt.herokuapp.com/manager/${nameOfWard}`
-      ).then(({ data }) => {
-        setListOfDetail(data);
-        setMiniLoader(false);
-      });
+      Axios.get(`${process.env.REACT_APP_API}/manager/${nameOfWard}`).then(
+        ({ data }) => {
+          setListOfDetail(data);
+          setMiniLoader(false);
+        }
+      );
   }, [nameOfWard]);
 
   const handleDeleteHome = (id) => {
@@ -28,7 +28,7 @@ export default function Table_detail({ nameOfWard }) {
   };
   const handleDestroyHome = () => {
     Axios.delete(
-      `https://nhatrongoaitruspkt.herokuapp.com/manager/home/deleteHomeById/${idHome}`
+      `${process.env.REACT_APP_API}/manager/home/deleteHomeById/${idHome}`
     )
       .then(function (response) {
         const result = listOfDetail.filter((ward) => !(ward._id == idHome));
@@ -49,26 +49,23 @@ export default function Table_detail({ nameOfWard }) {
   };
 
   const handleUpdate = () => {
-    Axios.put(
-      `https://nhatrongoaitruspkt.herokuapp.com/manager/update/${home._id}`,
-      {
-        name: home.name,
-        address: home.address,
-        map: home.map,
-        distance: home.distance,
-        price: home.price,
-        power: home.power,
-        water: home.water,
-        motorcycle: home.motorcycle,
-        wifi: home.wifi,
-        airConditioner: home.airConditioner,
-        waste: home.waste,
-        describe: home.describe,
-        hostName: home.hostName,
-        hostPhoneNumber: home.hostPhoneNumber,
-        imgHome: home.imgHome,
-      }
-    )
+    Axios.put(`${process.env.REACT_APP_API}/manager/update/${home._id}`, {
+      name: home.name,
+      address: home.address,
+      map: home.map,
+      distance: home.distance,
+      price: home.price,
+      power: home.power,
+      water: home.water,
+      motorcycle: home.motorcycle,
+      wifi: home.wifi,
+      airConditioner: home.airConditioner,
+      waste: home.waste,
+      describe: home.describe,
+      hostName: home.hostName,
+      hostPhoneNumber: home.hostPhoneNumber,
+      imgHome: home.imgHome,
+    })
       .then(function (response) {
         alert("Cập nhật thành công !!!");
       })
