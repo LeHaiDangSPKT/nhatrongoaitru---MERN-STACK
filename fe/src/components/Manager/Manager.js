@@ -40,13 +40,11 @@ export default function Manager() {
 
   //Get data wards
   React.useEffect(() => {
-    Axios.get("https://nhatrongoaitruspkt.herokuapp.com/manager/").then(
-      (response) => {
-        setListOfWard(response.data);
-        setNameOfWard(response.data[0].name);
-        setLoader(false);
-      }
-    );
+    Axios.get(process.env.REACT_APP_API + "/manager/").then((response) => {
+      setListOfWard(response.data);
+      setNameOfWard(response.data[0].name);
+      setLoader(false);
+    });
   }, []);
 
   const setActive = () => {
@@ -64,7 +62,7 @@ export default function Manager() {
   setActive();
 
   const addWard = () => {
-    Axios.post("https://nhatrongoaitruspkt.herokuapp.com/manager/addWard", {
+    Axios.post(process.env.REACT_APP_API + "/manager/addWard", {
       name: newWard.name,
       imgWardMain: newWard.imgWardMain,
       imgWardSub: newWard.imgWardSub,
@@ -86,7 +84,7 @@ export default function Manager() {
   };
 
   const handleSubmit = () => {
-    Axios.post("https://nhatrongoaitruspkt.herokuapp.com/manager/addHome", {
+    Axios.post(process.env.REACT_APP_API + "/manager/addHome", {
       name: newHome.name,
       address: newHome.address,
       map: newHome.map,
@@ -128,9 +126,9 @@ export default function Manager() {
 
   const handleDestroyWard = () => {
     Axios.delete(
-      `https://nhatrongoaitruspkt.herokuapp.com/manager/home/deleteHomeByName/${RemoveVietnameseTones(
-        nameOfWard
-      )}`
+      `${
+        process.env.REACT_APP_API
+      }/manager/home/deleteHomeByName/${RemoveVietnameseTones(nameOfWard)}`
     )
       .then(function (response) {
         alert(`Đã xoá tất cả nhà thuộc phường ${nameOfWard}`);
@@ -140,7 +138,7 @@ export default function Manager() {
       });
 
     Axios.delete(
-      `https://nhatrongoaitruspkt.herokuapp.com/manager/ward/deleteWard/${idWard}`
+      `${process.env.REACT_APP_API}/manager/ward/deleteWard/${idWard}`
     )
       .then(function (response) {
         const result = listOfWard.filter((ward) => !(ward.name == nameOfWard));

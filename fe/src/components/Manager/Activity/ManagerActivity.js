@@ -22,13 +22,13 @@ export default function Manager() {
 
   //Get data years
   React.useEffect(() => {
-    Axios.get(
-      "https://nhatrongoaitruspkt.herokuapp.com/managerActivity/getYear"
-    ).then((response) => {
-      setListOfYear(response.data);
-      setNameOfYear(response.data[0].year);
-      setLoader(false);
-    });
+    Axios.get(process.env.REACT_APP_API + "/managerActivity/getYear").then(
+      (response) => {
+        setListOfYear(response.data);
+        setNameOfYear(response.data[0].year);
+        setLoader(false);
+      }
+    );
   }, []);
 
   const setActive = () => {
@@ -49,12 +49,9 @@ export default function Manager() {
     if (year.trim() === "") {
       alert("Bạn chưa nhập gì");
     } else {
-      Axios.post(
-        "https://nhatrongoaitruspkt.herokuapp.com/managerActivity/addYear",
-        {
-          year,
-        }
-      ).then((response) => {
+      Axios.post(process.env.REACT_APP_API + "/managerActivity/addYear", {
+        year,
+      }).then((response) => {
         setListOfYear([
           ...listOfYear,
           {
@@ -68,7 +65,7 @@ export default function Manager() {
   };
 
   const handleSubmit = () => {
-    Axios.post("https://nhatrongoaitruspkt.herokuapp.com/managerActivity/", {
+    Axios.post(process.env.REACT_APP_API + "/managerActivity/", {
       name: newActivity.name,
       title: newActivity.title,
       link: newActivity.link,
@@ -89,7 +86,7 @@ export default function Manager() {
 
   const handleDestroyYear = () => {
     Axios.delete(
-      `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/deleteActivityByName/${nameOfYear}`
+      `${process.env.REACT_APP_API}/managerActivity/deleteActivityByName/${nameOfYear}`
     )
       .then(function (response) {
         alert(`Đã xoá tất cả các hoạt động của năm ${nameOfYear}`);
@@ -99,7 +96,7 @@ export default function Manager() {
       });
 
     Axios.delete(
-      `https://nhatrongoaitruspkt.herokuapp.com/managerActivity/deleteYear/${idYear}`
+      `${process.env.REACT_APP_API}/managerActivity/deleteYear/${idYear}`
     )
       .then(function (response) {
         alert(`Đã xoá tất cả các hoạt động của năm ${year}`);
